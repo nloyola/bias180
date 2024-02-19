@@ -1,13 +1,14 @@
-import { Footer } from './_components/footer'
-import { NavMenu } from './_components/nav-menu'
-import './index.css'
-import Image from 'next/image'
-import React from 'react'
+import { Footer } from './_components/footer';
+import { NavMenu } from './_components/nav-menu';
+import './index.css';
+import Image from 'next/image';
+import React from 'react';
 
 export const metadata = {
   title: 'Bias180',
   description: 'add description',
-}
+  metadataBase: new URL(`${process.env.VERCEL_URL}`)
+};
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -18,9 +19,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Image
               src="/assets/bias180-logo.webp"
               alt="Bias180 logo"
-              className="object-contain"
-              width={300}
-              height={400}
+              width="0"
+              height="0"
+              sizes="100vw"
+              style={{ width: '50%', height: 'auto' }}
             />
           </div>
           <NavMenu />
@@ -29,5 +31,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Footer />
       </body>
     </html>
-  )
+  );
 }
