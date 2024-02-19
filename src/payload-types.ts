@@ -10,6 +10,7 @@ export interface Config {
   collections: {
     pages: Page
     users: User
+    posts: Post
     'payload-preferences': PayloadPreference
     'payload-migrations': PayloadMigration
   }
@@ -25,6 +26,19 @@ export interface Page {
   updatedAt: string
   createdAt: string
 }
+
+export interface Post {
+  id: string
+  title: string
+  richText?: {
+    [k: string]: unknown
+  }[]
+  slug?: string
+  updatedAt: string
+  createdAt: string
+}
+
+
 export interface User {
   id: string
   updatedAt: string
@@ -70,6 +84,7 @@ declare module 'payload' {
     collections: {
       pages: Page
       users: User
+      posts: Post
       'payload-preferences': PayloadPreference
       'payload-migrations': PayloadMigration
     }

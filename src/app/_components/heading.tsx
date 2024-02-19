@@ -1,11 +1,11 @@
-import Image from 'next/image'
-import React from 'react'
+import React from 'react';
+import { RewindIcon } from './rewind-incon';
 
 export const Heading: React.FC<{ label: string }> = ({ label }) => {
   return (
     <div className="flex items-baseline gap-1">
-      <Image src="/assets/rewind-icon.png" alt="rewind icon" width={20} height={20} />
+      <RewindIcon />
       <p className="text-lg font-bold">{label}</p>
     </div>
-  )
-}
+  );
+};

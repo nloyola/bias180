@@ -1,7 +1,6 @@
-import React, { Fragment } from 'react'
-import { notFound } from 'next/navigation'
-import { getPayloadClient } from '../getPayload'
-import { Page } from './../payload-types'
+import { getPayloadClient } from '../getPayload';
+import { Page } from './../payload-types';
+import { ApproachBlockComponent } from './_components/approach-block';
 import { BannerTextBlockComponent } from './_components/banner-text-block';
 import { BoardBlockComponent } from './_components/board';
 import { BulletListBlockComponent } from './_components/bullet-list';
@@ -9,26 +8,25 @@ import { ContactUsBlockComponent } from './_components/contact-us-block';
 import { GradientQuotesBlockComponent } from './_components/gradient-quotes';
 import { ImageQuotesBlockComponent } from './_components/image-quotes';
 import { TextBlockComponent } from './_components/text-block';
-import { ApproachBlockComponent } from './_components/approach-block';
+import { notFound } from 'next/navigation';
+import React, { Fragment } from 'react';
 
 export default async function Home() {
-  const payload = await getPayloadClient()
+  const payload = await getPayloadClient();
   const { docs } = await payload.find({
     collection: 'pages',
     where: {
       slug: {
-        equals: 'bias180',
-      },
-    },
-  })
+        equals: 'bias180'
+      }
+    }
+  });
 
-  const home = docs?.[0] as Page
+  const home = docs?.[0] as Page;
 
   if (!home) {
-    return notFound()
+    return notFound();
   }
-
-  console.log(home);
 
   return (
     <>
@@ -64,5 +62,5 @@ export default async function Home() {
         }
       })}
     </>
-  )
+  );
 }
