@@ -1,4 +1,3 @@
-import { seed as seedData } from './seed';
 import dotenv from 'dotenv';
 import path from 'path';
 import type { Payload } from 'payload';
@@ -9,18 +8,19 @@ dotenv.config({
   path: path.resolve(__dirname, '../.env')
 });
 
+// eslint-disable-next-line
 let cached = (global as any).payload;
 
 if (!cached) {
+  // eslint-disable-next-line
   cached = (global as any).payload = { client: null, promise: null };
 }
 
 interface Args {
   initOptions?: Partial<InitOptions>;
-  seed?: boolean;
 }
 
-export const getPayloadClient = async ({ initOptions, seed }: Args = {}): Promise<Payload> => {
+export const getPayloadClient = async ({ initOptions }: Args = {}): Promise<Payload> => {
   if (!process.env.PAYLOAD_SECRET) {
     throw new Error('PAYLOAD_SECRET environment variable is missing');
   }
@@ -38,12 +38,8 @@ export const getPayloadClient = async ({ initOptions, seed }: Args = {}): Promis
   }
 
   try {
-    process.env.PAYLOAD_DROP_DATABASE = seed ? 'true' : 'false';
+    process.env.PAYLOAD_DROP_DATABASE = 'false';
     cached.client = await cached.promise;
-
-    if (seed) {
-      await seedData(payload);
-    }
   } catch (e: unknown) {
     cached.promise = null;
     throw e;

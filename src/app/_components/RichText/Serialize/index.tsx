@@ -1,30 +1,32 @@
-import React, { Fragment } from 'react'
-import escapeHTML from 'escape-html'
-import Link from 'next/link'
+import React, { Fragment } from 'react';
+import escapeHTML from 'escape-html';
+import Link from 'next/link';
+import { Media } from '../../../../payload-types';
+import { Button } from '../../ui/button';
+import Image from 'next/image';
 
 type Node = {
-  type: string
+  type: string;
   value?: {
-    url: string
-    alt: string
-  }
-  children?: Node[]
-  url?: string
-  [key: string]: unknown
-  newTab?: boolean
-}
+    url: string;
+    alt: string;
+  };
+  children?: Node[];
+  url?: string;
+  [key: string]: unknown;
+  newTab?: boolean;
+};
 
 export type CustomRenderers = {
-  [key: string]: (args: { node: Node; Serialize: SerializeFunction; index: number }) => JSX.Element // eslint-disable-line
-}
+  [key: string]: (args: { node: Node; Serialize: SerializeFunction; index: number }) => JSX.Element; // eslint-disable-line
+};
 
 type SerializeFunction = React.FC<{
-  content?: Node[]
-  customRenderers?: CustomRenderers
-}>
+  content?: Node[];
+  customRenderers?: CustomRenderers;
+}>;
 
-const isText = (value: any): boolean =>
-  typeof value === 'object' && value !== null && typeof value.text === 'string'
+const isText = (value: any): boolean => typeof value === 'object' && value !== null && typeof value.text === 'string';
 
 export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
   return (
@@ -32,18 +34,30 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
       {content?.map((node, i) => {
         if (isText(node)) {
           // @ts-expect-error
-          let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />
+          let text = <span dangerouslySetInnerHTML={{ __html: escapeHTML(node.text) }} />;
 
           if (node.bold) {
-            text = <strong key={i}>{text}</strong>
+            text = (
+              <strong key={i} className="font-semibold">
+                {text}
+              </strong>
+            );
           }
 
           if (node.code) {
-            text = <code key={i}>{text}</code>
+            text = (
+              <code key={i} className="font-mono">
+                {text}
+              </code>
+            );
           }
 
           if (node.italic) {
-            text = <em key={i}>{text}</em>
+            text = (
+              <em key={i} className="italic">
+                {text}
+              </em>
+            );
           }
 
           if (node.underline) {
@@ -51,130 +65,164 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
               <span style={{ textDecoration: 'underline' }} key={i}>
                 {text}
               </span>
-            )
+            );
           }
 
           if (node.strikethrough) {
-            text = (
-              <span style={{ textDecoration: 'line-through' }} key={i}>
-                {text}
-              </span>
-            )
+            text = <s key={i}>{text}</s>;
           }
 
-          return <Fragment key={i}>{text}</Fragment>
+          return <Fragment key={i}>{text}</Fragment>;
         }
 
         if (!node) {
-          return null
+          return null;
         }
 
-        if (
-          customRenderers &&
-          customRenderers[node.type] &&
-          typeof customRenderers[node.type] === 'function'
-        ) {
-          return customRenderers[node.type]({ node, Serialize, index: i })
+        if (customRenderers && customRenderers[node.type] && typeof customRenderers[node.type] === 'function') {
+          return customRenderers[node.type]({ node, Serialize, index: i });
         }
 
         switch (node.type) {
           case 'br':
-            return <br key={i} />
+            return <br key={i} />;
 
           case 'h1':
             return (
-              <h1 key={i}>
+              <h1 key={i} className="text-6xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h1>
-            )
+            );
 
           case 'h2':
             return (
-              <h2 key={i}>
+              <h2 key={i} className="text-5xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h2>
-            )
+            );
 
           case 'h3':
             return (
-              <h3 key={i}>
+              <h3 key={i} className="text-4xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h3>
-            )
+            );
 
           case 'h4':
             return (
-              <h4 key={i}>
+              <h4 key={i} className="text-4xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h4>
-            )
+            );
 
           case 'h5':
             return (
-              <h5 key={i}>
+              <h5 key={i} className="text-2xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h5>
-            )
+            );
 
           case 'h6':
             return (
-              <h6 key={i}>
+              <h6 key={i} className="text-xl font-semibold">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h6>
-            )
+            );
 
           case 'quote':
             return (
               <blockquote key={i}>
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </blockquote>
-            )
+            );
 
           case 'ul':
             return (
-              <ul key={i}>
+              <ul key={i} className="list-disc">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </ul>
-            )
+            );
 
           case 'ol':
             return (
-              <ol key={i}>
+              <ol key={i} className="list-decimal">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </ol>
-            )
+            );
 
           case 'li':
             return (
-              <li key={i}>
+              <li key={i} className="py-2">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </li>
-            )
+            );
 
           case 'link':
             return (
               <Link
                 href={escapeHTML(node.url)}
                 key={i}
+                className="font-semibold text-sky-500"
                 {...(node.newTab
                   ? {
                       target: '_blank',
-                      rel: 'noopener noreferrer',
+                      rel: 'noopener noreferrer'
                     }
                   : {})}
               >
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </Link>
-            )
+            );
+
+          case 'indent':
+            return (
+              <div className="pl-8">
+                <Serialize content={node.children} customRenderers={customRenderers} />
+              </div>
+            );
+
+          case 'upload': {
+            if (!node.value) {
+              return null;
+            }
+
+            const media = node.value as Media;
+            const alt = media.alt ?? 'No value';
+            const url = media.url;
+
+            if (media.mimeType.startsWith('image')) {
+              return (
+                <Image
+                  key={i}
+                  src={url}
+                  alt={alt}
+                  width="0"
+                  height="0"
+                  sizes="100vw"
+                  style={{ width: '100%', height: 'auto' }}
+                />
+              );
+            }
+
+            if (media.mimeType === 'application/pdf') {
+              return (
+                <a key={i} href={url} target="_blank">
+                  <Button>{alt}</Button>
+                </a>
+              );
+            }
+
+            throw new Error('invalid uplod type');
+          }
 
           default:
             return (
-              <p key={i}>
+              <p key={i} className="my-3">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </p>
-            )
+            );
         }
       })}
     </Fragment>
-  )
-}
+  );
+};

@@ -1,20 +1,20 @@
-import { webpackBundler } from '@payloadcms/bundler-webpack'
+import { webpackBundler } from '@payloadcms/bundler-webpack';
 import { postgresAdapter } from '@payloadcms/db-postgres';
-import { slateEditor } from '@payloadcms/richtext-slate'
-import dotenv from 'dotenv'
-import path from 'path'
+import { slateEditor } from '@payloadcms/richtext-slate';
+import dotenv from 'dotenv';
+import path from 'path';
 import Users from './collections/users';
 import Pages from './collections/pages';
 import Media from './collections/media';
 import Posts from './collections/posts';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../.env'),
-})
+  path: path.resolve(__dirname, '../.env')
+});
 
-import { buildConfig } from 'payload/config'
+import { buildConfig } from 'payload/config';
 
-import BeforeLogin from './components/BeforeLogin'
+import BeforeLogin from './components/BeforeLogin';
 
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_SERVER_URL || '',
@@ -22,8 +22,8 @@ export default buildConfig({
   admin: {
     bundler: webpackBundler(),
     components: {
-      beforeLogin: [BeforeLogin],
-    },
+      beforeLogin: [BeforeLogin]
+    }
   },
   editor: slateEditor({}),
   db: postgresAdapter({
@@ -32,6 +32,6 @@ export default buildConfig({
     }
   }),
   typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
-  },
-})
+    outputFile: path.resolve(__dirname, 'payload-types.ts')
+  }
+});

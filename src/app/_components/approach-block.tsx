@@ -1,8 +1,9 @@
 'use client';
 
-import { ApproachBlock } from '@/model/approach';
 import React, { ReactNode } from 'react';
 import { Heading } from './heading';
+import Image from 'next/image';
+import { ApproachBlock, Media } from '../../payload-types';
 
 // https://www.geeksforgeeks.org/how-to-create-circle-with-text-in-tailwind-css/
 
@@ -41,7 +42,8 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
 
   let style = {};
   if (block.backgroundImage) {
-    style = { ...style, backgroundImage: `url("${block.backgroundImage.url}")` };
+    const media = block.backgroundImage as Media;
+    style = { ...style, backgroundImage: `url("${media.url}")` };
   }
 
   if (width < breakpoint) {
@@ -50,12 +52,23 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
         <div className="container my-4 text-white">
           <Heading label={block.header} />
           <div className="grid grid-cols-1 gap-10 p-10 md:grid-cols-12">
-            {block.items.map(({ header, content, icon }, index) => (
-              <React.Fragment key={index}>
-                <img src={icon.url} className="m-2 h-20 w-20 place-self-center md:col-span-4" />
-                <ApproachItem itemNum={index + 1} heading={header} message={content} />
-              </React.Fragment>
-            ))}
+            {block.items.map(({ header, content, icon }, index) => {
+              const media = icon as Media;
+              return (
+                <React.Fragment key={index}>
+                  <Image
+                    alt="icon"
+                    src={media.url}
+                    className="m-2 h-20 w-20 place-self-center md:col-span-4"
+                    width="0"
+                    height="0"
+                    sizes="100vw"
+                    style={{ width: '100%', height: 'auto' }}
+                  />
+                  <ApproachItem itemNum={index + 1} heading={header} message={content} />
+                </React.Fragment>
+              );
+            })}
           </div>
         </div>
       </div>
@@ -69,7 +82,8 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
   const approachesInRows = [block.items.slice(0, 3), block.items.slice(3, 6)];
 
   if (block.backgroundImage) {
-    style = { ...style, backgroundImage: `url("${block.backgroundImage.url}")` };
+    const media = block.backgroundImage as Media;
+    style = { ...style, backgroundImage: `url("${media.url}")` };
   }
 
   // render in this alternate way so that list items and paragraphs are top aligned
@@ -80,13 +94,21 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
         <div className="grid grid-cols-1 gap-10 p-10 md:grid-cols-12">
           {approachesInRows.map((row, rowIndex) => (
             <React.Fragment key={rowIndex}>
-              {row.map(({ icon }, index) => (
-                <img
-                  key={3 * rowIndex + index}
-                  src={icon.url}
-                  className="m-2 h-20 w-20 place-self-center md:col-span-4"
-                />
-              ))}
+              {row.map(({ icon }, index) => {
+                const media = icon as Media;
+                return (
+                  <Image
+                    key={3 * rowIndex + index}
+                    src={media.url}
+                    alt="icon"
+                    className="m-2 place-self-center md:col-span-4"
+                    width="0"
+                    height="0"
+                    sizes="100vw"
+                    style={{ width: '20%', height: 'auto' }}
+                  />
+                );
+              })}
               {row.map(({ header, content }, index) => (
                 <ApproachItem
                   key={30 * rowIndex + index}

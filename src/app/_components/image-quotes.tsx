@@ -1,11 +1,10 @@
 import { cn } from '../_lib/utils';
-import { ListField, ListItemField } from '@/model/field';
-import { ImageQuotesBlock } from '@app/model/image-quotes';
 import React from 'react';
+import { ImageQuotesBlock, Media } from '../../payload-types';
 
 const quoteBaseCss = 'mt-10 bg-cyan-950/70 p-4 font-bold text-white md:ml-10 md:w-[35rem]';
 
-const Quote: React.FC<{ item: ListItemField; index: number }> = ({ item, index }) => {
+const Quote: React.FC<{ item: any; index: number }> = ({ item, index }) => {
   if (!('type' in item) || item.type !== 'li') {
     throw new Error('invalid list type');
   }
@@ -24,7 +23,7 @@ const Quote: React.FC<{ item: ListItemField; index: number }> = ({ item, index }
   );
 };
 
-const Quotes: React.FC<{ quotes: ListField }> = ({ quotes }) => {
+const Quotes: React.FC<{ quotes: any }> = ({ quotes }) => {
   if (!('type' in quotes) || (quotes.type !== 'ol' && quotes.type !== 'ul')) {
     throw new Error('invalid quotes type');
   }
@@ -32,7 +31,7 @@ const Quotes: React.FC<{ quotes: ListField }> = ({ quotes }) => {
   return (
     <>
       {quotes.children.map((quote, index) => {
-        return <Quote key={index} item={quote as ListItemField} index={index} />;
+        return <Quote key={index} item={quote} index={index} />;
       })}
     </>
   );
@@ -41,16 +40,17 @@ const Quotes: React.FC<{ quotes: ListField }> = ({ quotes }) => {
 export const ImageQuotesBlockComponent: React.FC<{ block: ImageQuotesBlock }> = ({ block }) => {
   let style = {};
   if (block.backgroundImage) {
-    style = { ...style, backgroundImage: `url("${block.backgroundImage.url}")` };
+    const media = block.backgroundImage as Media;
+    style = { ...style, backgroundImage: `url("${media.url}")` };
   }
 
   return (
     <div className={cn('my-4 flex min-h-full min-w-full justify-center bg-cover bg-bottom')} style={style}>
       <div className="container flex flex-col justify-center gap-4">
         {block.content.map((list, index) => (
-          <Quotes key={index} quotes={list as ListField} />
+          <Quotes key={index} quotes={list} />
         ))}
-        <p className="p-4 text-xs text-white">{block.sources}</p>
+        <p className="p-4 text-xs text-white font-semibold">{block.sources}</p>
       </div>
     </div>
   );

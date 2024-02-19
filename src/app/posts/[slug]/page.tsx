@@ -1,15 +1,13 @@
-import { FieldChildrenComponent } from '../../_components/field-children';
 import { ImagePlaceholder } from '../../_components/image-placeholder';
 import { Alert, AlertTitle } from '../../_components/ui/alert';
-import { AlertBlock } from '../../_model/alert-block';
-import { ContentBlock } from '../../_model/content-block';
-import { QuoteBlock } from '../../_model/quote-block';
 import { faCircleInfo, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getPayloadClient } from '../../../getPayload';
-import { Post } from '../../_model/post';
 import { RewindIcon } from '../../_components/rewind-incon';
 import type { Metadata, ResolvingMetadata } from 'next';
+import Image from 'next/image';
+import { RichText } from '../../_components/RichText';
+import { Alert as AlertBlock, Content, Media, Quote } from '../../../payload-types';
 
 const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   let variant: 'info' | 'success' | 'warning' | 'destructive';
@@ -25,26 +23,18 @@ const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   }
 
   return (
-    <Alert variant={variant}>
+    <Alert variant={variant} className="pb-4">
       <FontAwesomeIcon icon={faCircleInfo} />
       <AlertTitle>{block.message}</AlertTitle>
     </Alert>
   );
 };
 
-const ContentBlockCmp: React.FC<{ block: ContentBlock }> = ({ block }) => {
-  return (
-    <>
-      {block.content.map((child, index) => (
-        <div key={index} className="my-4">
-          <FieldChildrenComponent fieldChildren={child} />
-        </div>
-      ))}
-    </>
-  );
+const ContentBlockCmp: React.FC<{ block: Content }> = ({ block }) => {
+  return <RichText content={block.content} className="grid" />;
 };
 
-const QuoteBlockCmp: React.FC<{ block: QuoteBlock }> = ({ block }) => {
+const QuoteBlockCmp: React.FC<{ block: Quote }> = ({ block }) => {
   return (
     <blockquote className="flex flex-col rounded-md bg-gray-200 p-6">
       <div className="flex gap-2">
@@ -75,9 +65,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     }
   });
 
-  const post = docs[0] as Post;
+  const post = docs[0];
   return {
-    title: post.postMeta.description,
+    title: post.postMeta.title,
     description: post.postMeta.description,
     keywords: post.postMeta.keywords,
     alternates: {
@@ -97,17 +87,22 @@ export default async function Post({ params }: { params: { slug: string } }) {
     }
   });
 
-  const post = docs[0] as Post;
+  const post = docs[0];
+  const media = post.postImage as Media;
 
   return (
     <>
       <div className="container max-w-screen-lg">
         <div className="flex justify-center">
           {post.postImage ? (
-            <img
-              src={post.postImage.url}
-              alt={`image of ${post.postImage.alt}`}
+            <Image
+              src={media.url}
+              alt={media.alt}
               className="aspect-[3/2] h-1/5 lg:h-[30rem]"
+              width="0"
+              height="0"
+              sizes="100vw"
+              style={{ width: '100%', height: 'auto' }}
             />
           ) : (
             <ImagePlaceholder message="post image" />
@@ -139,12 +134,3 @@ export default async function Post({ params }: { params: { slug: string } }) {
     </>
   );
 }
-
-Post.getInitialProps = async (context) => {
-  const { req, query, res, asPath, pathname } = context;
-  if (req) {
-    let host = req.headers.host; // will give you localhost:3000
-    console.log(host);
-  }
-  console.log(query);
-};

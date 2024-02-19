@@ -1,12 +1,13 @@
 import { cn } from '../_lib/utils';
-import { BannerTextBlock } from '../_model/banner-text';
 import React from 'react';
-import { FieldChildrenComponent } from './field-children';
+import { BannerTextBlock, Media } from '../../payload-types';
+import { RichText } from './RichText';
 
 export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({ block }) => {
   let style = {};
   if (block.bannerImage) {
-    style = { ...style, backgroundImage: `url("${block.bannerImage.url}")` };
+    const media = block.bannerImage as Media;
+    style = { ...style, backgroundImage: `url("${media.url}")` };
   }
 
   return (
@@ -18,11 +19,7 @@ export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({
       )}
       <div className="container px-6 md:px-20">
         <h1 className="py-4 text-3xl font-bold">{block.header}</h1>
-        {block.content.map((child, index) => (
-          <div key={index} className="py-4">
-            <FieldChildrenComponent fieldChildren={child} />
-          </div>
-        ))}
+        <RichText content={block.content} className="grid pb-10" />
       </div>
     </>
   );

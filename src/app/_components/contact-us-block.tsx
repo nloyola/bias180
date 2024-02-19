@@ -1,9 +1,9 @@
-"use client";
+'use client';
 
-import { ContactDetailsBlock } from '../_model/contact-details';
 import { faEnvelope, faHandPointRight, faLocationDot } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React from 'react';
+import { ContactDetailsBlock, Media } from '../../payload-types';
 import { Button } from './ui/button';
 import {
   Dialog,
@@ -18,7 +18,8 @@ import {
 export const ContactUsBlockComponent: React.FC<{ block: ContactDetailsBlock }> = ({ block }) => {
   let style = {};
   if (block.backgroundImage) {
-    style = { ...style, backgroundImage: `url("${block.backgroundImage.url}")` };
+    const media = block.backgroundImage as Media;
+    style = { ...style, backgroundImage: `url("${media.url}")` };
   }
 
   return (

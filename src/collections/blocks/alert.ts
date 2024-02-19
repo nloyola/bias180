@@ -1,7 +1,8 @@
-import { Block } from 'payload/types';
+import type { Block } from 'payload/types';
 
 const Alert: Block = {
   slug: 'alert',
+  interfaceName: 'AlertBlock',
   fields: [
     {
       name: 'type',

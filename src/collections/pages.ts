@@ -1,4 +1,4 @@
-import { Block, CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload/types';
 import { TextBlock } from './blocks/text-block';
 import { BannerTextBlock } from './blocks/banner-text-block';
 import { BulletListBlock } from './blocks/bullet-list-block';
@@ -7,26 +7,7 @@ import { GradientQuotesBlock } from './blocks/gradient-quotes-block';
 import { ApproachBlock } from './blocks/approach-block';
 import { BoardMembersBlock } from './blocks/board-members-block';
 import { ContactDetailsBlock } from './blocks/contact-details';
-import formatSlug from '../utilities/formatSlug'
-
-const QuoteBlock: Block = {
-  slug: 'Quote', // required
-  imageURL: 'https://google.com/path/to/image.jpg',
-  imageAltText: 'A nice thumbnail image to show what this block looks like',
-  interfaceName: 'QuoteBlock', // optional
-  fields: [
-    // required
-    {
-      name: 'quoteHeader',
-      type: 'text',
-      required: true
-    },
-    {
-      name: 'quoteText',
-      type: 'text'
-    }
-  ]
-};
+import formatSlug from '../utilities/formatSlug';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -62,12 +43,9 @@ const Pages: CollectionConfig = {
       name: 'slug',
       label: 'Slug',
       type: 'text',
-      admin: {
-        position: 'sidebar',
-      },
       hooks: {
-        beforeValidate: [formatSlug('title')],
-      },
+        beforeValidate: [formatSlug('title')]
+      }
     }
   ]
 };

@@ -1,9 +1,9 @@
-import { Block } from 'payload/types';
+import type { Block } from 'payload/types';
 
-export const Quote: Block = {
+const Quote: Block = {
   slug: 'quote',
-  //imageURL: 'http://localhost:3000/media/quote.png',
   imageAltText: 'Quote block',
+  interfaceName: 'QuoteBlock',
   fields: [
     {
       name: 'quote',

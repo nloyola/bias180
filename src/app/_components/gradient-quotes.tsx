@@ -1,13 +1,12 @@
 import { cn } from '../_lib/utils';
-import { ListField, ListItemField } from '@/model/field';
-import { GradientQuotesBlock } from '@/model/gradient-quotes';
 import React from 'react';
+import { GradientQuotesBlock } from '../../payload-types';
 
 const classes =
   'bg-bias-vert flex min-h-full min-w-full justify-center bg-gradient-to-r bg-cover bg-fixed bg-scroll bg-center';
 const quoteClasses = 'bg-gray-700/80 px-4 py-2 font-semibold';
 
-const Quote: React.FC<{ item: ListItemField; index: number }> = ({ item, index }) => {
+const Quote: React.FC<{ item: any; index: number }> = ({ item, index }) => {
   if (!('type' in item) || item.type !== 'li') {
     throw new Error('invalid list type');
   }
@@ -26,7 +25,7 @@ const Quote: React.FC<{ item: ListItemField; index: number }> = ({ item, index }
   );
 };
 
-const Quotes: React.FC<{ quotes: ListField }> = ({ quotes }) => {
+const Quotes: React.FC<{ quotes: any }> = ({ quotes }) => {
   if (!('type' in quotes) || (quotes.type !== 'ol' && quotes.type !== 'ul')) {
     throw new Error('invalid quotes type');
   }
@@ -34,7 +33,7 @@ const Quotes: React.FC<{ quotes: ListField }> = ({ quotes }) => {
   return (
     <>
       {quotes.children.map((quote, index) => {
-        return <Quote key={index} item={quote as ListItemField} index={index} />;
+        return <Quote key={index} item={quote} index={index} />;
       })}
     </>
   );
@@ -51,10 +50,10 @@ export const GradientQuotesBlockComponent: React.FC<{ block: GradientQuotesBlock
       <div className="container text-white">
         <div className="grid grid-cols-1 gap-6 p-8 md:grid-cols-3">
           {block.content.map((list, index) => (
-            <Quotes key={index} quotes={list as ListField} />
+            <Quotes key={index} quotes={list} />
           ))}
         </div>
-        <p className="p-4 text-xs text-white">{block.sources}</p>
+        <p className="p-4 text-xs text-white font-semibold">{block.sources}</p>
       </div>
     </div>
   );

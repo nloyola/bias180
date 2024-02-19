@@ -1,12 +1,13 @@
-import { CollectionConfig } from 'payload/types';
+import type { CollectionConfig } from 'payload/types';
 import Quote from './blocks/quote';
 import Content from './blocks/content';
 import Alert from './blocks/alert';
+import formatSlug from '../utilities/formatSlug';
 
 const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
-    defaultColumns: ['title', 'author', 'category', 'tags', 'status'],
+    defaultColumns: ['slug', 'title', 'author', 'category', 'tags', 'published_date'],
     useAsTitle: 'title'
   },
   access: {
@@ -21,18 +22,6 @@ const Posts: CollectionConfig = {
       name: 'postMeta',
       type: 'group',
       fields: [
-        {
-          name: 'slug',
-          type: 'text',
-          unique: true,
-          defaultValue: 'post-slug-change-me',
-          minLength: 10
-        },
-        {
-          name: 'published_date',
-          type: 'date',
-          defaultValue: () => new Date()
-        },
         {
           name: 'title',
           type: 'text',
@@ -55,9 +44,25 @@ const Posts: CollectionConfig = {
       ]
     },
     {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      unique: true,
+      defaultValue: 'post-slug-change-me',
+      minLength: 10,
+      hooks: {
+        beforeValidate: [formatSlug('title')]
+      }
+    },
+    {
       name: 'title',
       type: 'text',
       required: true
+    },
+    {
+      name: 'published_date',
+      type: 'date',
+      defaultValue: () => new Date()
     },
     {
       type: 'tabs',
@@ -79,13 +84,14 @@ const Posts: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
+              minRows: 1,
+              maxRows: 20,
               blocks: [Quote, Content, Alert]
             }
           ]
         }
       ]
     }
-    // add sidebar fields here
   ]
 };
 export default Posts;

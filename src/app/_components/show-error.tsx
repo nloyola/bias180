@@ -1,4 +1,4 @@
-import { cn } from '@app/lib/utils';
+import { cn } from '../_lib/utils';
 
 export const ShowError: React.FC<{ message?: string; error?: any }> = ({ message, error }) => {
   return (

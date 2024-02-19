@@ -30,7 +30,7 @@ export default async function Home() {
 
   return (
     <>
-      {home.layout.map((block) => {
+      {home.layout.map((block, index) => {
         switch (block.blockType) {
           case 'BannerText':
             return <BannerTextBlockComponent key={block.id} block={block} />;

@@ -6,87 +6,311 @@
  * and re-run `payload generate:types` to regenerate this file.
  */
 
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApproachItems".
+ */
+export type ApproachItems =
+  | {
+      icon?: number | Media | null;
+      header: string;
+      content: string;
+      id?: string | null;
+    }[]
+  | null;
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BoardMembers".
+ */
+export type BoardMembers =
+  | {
+      image?: number | Media | null;
+      name: string;
+      bio: {
+        [k: string]: unknown;
+      }[];
+      id?: string | null;
+    }[]
+  | null;
+
 export interface Config {
   collections: {
-    pages: Page
-    users: User
-    posts: Post
-    'payload-preferences': PayloadPreference
-    'payload-migrations': PayloadMigration
-  }
-  globals: {}
+    users: User;
+    posts: Post;
+    pages: Page;
+    media: Media;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
+  };
+  globals: {};
 }
-export interface Page {
-  id: string
-  title: string
-  richText?: {
-    [k: string]: unknown
-  }[]
-  slug?: string
-  updatedAt: string
-  createdAt: string
-}
-
-export interface Post {
-  id: string
-  title: string
-  richText?: {
-    [k: string]: unknown
-  }[]
-  slug?: string
-  updatedAt: string
-  createdAt: string
-}
-
-
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "users".
+ */
 export interface User {
-  id: string
-  updatedAt: string
-  createdAt: string
-  email: string
-  resetPasswordToken?: string
-  resetPasswordExpiration?: string
-  salt?: string
-  hash?: string
-  loginAttempts?: number
-  lockUntil?: string
-  password?: string
+  id: number;
+  updatedAt: string;
+  createdAt: string;
+  email: string;
+  resetPasswordToken?: string | null;
+  resetPasswordExpiration?: string | null;
+  salt?: string | null;
+  hash?: string | null;
+  loginAttempts?: number | null;
+  lockUntil?: string | null;
+  password: string | null;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "posts".
+ */
+export interface Post {
+  id: number;
+  postMeta: {
+    slug?: string | null;
+    published_date?: string | null;
+    title: string;
+    description: string;
+    keywords?: string | null;
+  };
+  title: string;
+  postImage: number | Media;
+  layout?: (Quote | Content | Alert)[] | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "media".
+ */
+export interface Media {
+  id: number;
+  alt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Quote".
+ */
+export interface Quote {
+  quote?: string | null;
+  author?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Content".
+ */
+export interface Content {
+  content?:
+    | {
+        [k: string]: unknown;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Alert".
+ */
+export interface Alert {
+  type?: ('info' | 'success' | 'warning' | 'danger') | null;
+  message?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'alert';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "pages".
+ */
+export interface Page {
+  id: number;
+  title: string;
+  layout?:
+    | (
+        | TextBlock
+        | ApproachBlock
+        | BoardBlock
+        | BannerTextBlock
+        | BulletListBlock
+        | GradientQuotesBlock
+        | ImageQuotesBlock
+        | ContactDetailsBlock
+        | QuoteBlock
+      )[]
+    | null;
+  slug?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TextBlock".
+ */
+export interface TextBlock {
+  header: string;
+  content: {
+    [k: string]: unknown;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Text';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ApproachBlock".
+ */
+export interface ApproachBlock {
+  header: string;
+  backgroundImage?: number | Media | null;
+  items?: ApproachItems;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Approach';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BoardBlock".
+ */
+export interface BoardBlock {
+  header: string;
+  members?: BoardMembers;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Board';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerTextBlock".
+ */
+export interface BannerTextBlock {
+  header: string;
+  bannerImage?: number | Media | null;
+  content: {
+    [k: string]: unknown;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'BannerText';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BulletListBlock".
+ */
+export interface BulletListBlock {
+  header: string;
+  content: {
+    [k: string]: unknown;
+  }[];
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'BulletList';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GradientQuotesBlock".
+ */
+export interface GradientQuotesBlock {
+  gradient?: ('none' | 'gradient-1' | 'gradient-2') | null;
+  content: {
+    [k: string]: unknown;
+  }[];
+  sources: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'GradientQuotes';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ImageQuotesBlock".
+ */
+export interface ImageQuotesBlock {
+  backgroundImage?: number | Media | null;
+  content: {
+    [k: string]: unknown;
+  }[];
+  sources: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ImageQuotes';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactDetailsBlock".
+ */
+export interface ContactDetailsBlock {
+  backgroundImage?: number | Media | null;
+  email: string;
+  street: string;
+  city: string;
+  province: string;
+  country: string;
+  postalCode: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ContactDetails';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "QuoteBlock".
+ */
+export interface QuoteBlock {
+  quoteHeader: string;
+  quoteText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'Quote';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-preferences".
+ */
 export interface PayloadPreference {
-  id: string
+  id: number;
   user: {
-    relationTo: 'users'
-    value: string | User
-  }
-  key?: string
+    relationTo: 'users';
+    value: number | User;
+  };
+  key?: string | null;
   value?:
     | {
-        [k: string]: unknown
+        [k: string]: unknown;
       }
     | unknown[]
     | string
     | number
     | boolean
-    | null
-  updatedAt: string
-  createdAt: string
+    | null;
+  updatedAt: string;
+  createdAt: string;
 }
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-migrations".
+ */
 export interface PayloadMigration {
-  id: string
-  name?: string
-  batch?: number
-  updatedAt: string
-  createdAt: string
+  id: number;
+  name?: string | null;
+  batch?: number | null;
+  updatedAt: string;
+  createdAt: string;
 }
 
+
 declare module 'payload' {
-  export interface GeneratedTypes {
-    collections: {
-      pages: Page
-      users: User
-      posts: Post
-      'payload-preferences': PayloadPreference
-      'payload-migrations': PayloadMigration
-    }
-  }
+  export interface GeneratedTypes extends Config {}
 }
