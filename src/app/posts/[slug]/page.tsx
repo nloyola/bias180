@@ -7,7 +7,8 @@ import { RewindIcon } from '../../_components/rewind-incon';
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
 import { RichText } from '../../_components/RichText';
-import { Alert as AlertBlock, Content, Media, Quote } from '../../../payload-types';
+import { AlertBlock, ContentBlock, Media, QuoteBlock } from '../../../payload-types';
+import { format } from 'date-fns';
 
 const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   let variant: 'info' | 'success' | 'warning' | 'destructive';
@@ -30,11 +31,11 @@ const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   );
 };
 
-const ContentBlockCmp: React.FC<{ block: Content }> = ({ block }) => {
+const ContentBlockCmp: React.FC<{ block: ContentBlock }> = ({ block }) => {
   return <RichText content={block.content} className="grid" />;
 };
 
-const QuoteBlockCmp: React.FC<{ block: Quote }> = ({ block }) => {
+const QuoteBlockCmp: React.FC<{ block: QuoteBlock }> = ({ block }) => {
   return (
     <blockquote className="flex flex-col rounded-md bg-gray-200 p-6">
       <div className="flex gap-2">
@@ -53,25 +54,35 @@ type Props = {
 export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
   const payload = await getPayloadClient();
   const slug = params.slug;
-
-  // fetch data
-  const product = await getPayloadClient();
   const { docs } = await payload.find({
     collection: 'posts',
     where: {
-      'postMeta.slug': {
-        equals: params.slug
+      slug: {
+        equals: slug
       }
     }
   });
 
   const post = docs[0];
+  if (!post) {
+    return null;
+  }
+
+  const media = post.postImage as Media;
+  const imageUrl = media.url ?? undefined;
+
   return {
     title: post.postMeta.title,
     description: post.postMeta.description,
     keywords: post.postMeta.keywords,
     alternates: {
       canonical: `/posts/${params.slug}`
+    },
+    openGraph: {
+      title: post.postMeta.title,
+      description: post.postMeta.description,
+      images: [imageUrl],
+      url: `/posts/${params.slug}`
     }
   };
 }
@@ -81,7 +92,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
   const { docs } = await payload.find({
     collection: 'posts',
     where: {
-      'postMeta.slug': {
+      slug: {
         equals: params.slug
       }
     }
@@ -111,7 +122,12 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
         <div className="flex items-baseline gap-1 py-8">
           <RewindIcon />
-          <p className="text-3xl font-bold">{post.title}</p>
+          <div className="flex flex-col gap-1 py-4">
+            <p className="text-3xl font-bold">{post.title}</p>
+            {post.published_date && (
+              <p className="text-sm font-bold text-gray-400">Published: {format(post.published_date, 'yyyy-MM-dd')}</p>
+            )}
+          </div>
         </div>
 
         {post.layout.map((block, index) => {

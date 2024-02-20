@@ -24,6 +24,16 @@ const Pages: CollectionConfig = {
       required: true
     },
     {
+      name: 'slug',
+      label: 'Slug',
+      type: 'text',
+      unique: true,
+      defaultValue: 'page-slug-change-me',
+      hooks: {
+        beforeValidate: [formatSlug('title')]
+      }
+    },
+    {
       name: 'layout',
       type: 'blocks',
       minRows: 1,
@@ -38,14 +48,6 @@ const Pages: CollectionConfig = {
         ImageQuotesBlock,
         ContactDetailsBlock
       ]
-    },
-    {
-      name: 'slug',
-      label: 'Slug',
-      type: 'text',
-      hooks: {
-        beforeValidate: [formatSlug('title')]
-      }
     }
   ]
 };

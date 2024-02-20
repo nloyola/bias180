@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { RewindIcon } from '../_components/rewind-incon';
 import Image from 'next/image';
 import { Media } from '../../payload-types';
+import { format } from 'date-fns';
 
 // idea from here: https://play.tailwindcss.com/9Vnsn7VxnW
 
@@ -48,10 +49,17 @@ export default async function Posts() {
                     )}
                   </CardHeader>
                   <CardContent className="flex flex-col gap-8 space-y-4 lg:mt-0 lg:w-1/2">
-                    <p className="text-3xl font-semibold">{post.postMeta.title}</p>
+                    <div className="flex flex-col gap-1 py-4">
+                      <p className="text-3xl font-bold">{post.title}</p>
+                      {post.published_date && (
+                        <p className="text-sm font-bold text-gray-500/90">
+                          Published: {format(post.published_date, 'yyyy-MM-dd')}
+                        </p>
+                      )}
+                    </div>
                     <p>{post.postMeta.description}</p>
                     <div className="flex items-center">
-                      <Link href={`/posts/${post.postMeta.slug}`} legacyBehavior passHref>
+                      <Link href={`/posts/${post.slug}`} legacyBehavior passHref>
                         <Button>Read More</Button>
                       </Link>
                     </div>

@@ -7,7 +7,7 @@ import formatSlug from '../utilities/formatSlug';
 const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
-    defaultColumns: ['slug', 'title', 'author', 'category', 'tags', 'published_date'],
+    //defaultColumns: ['slug', 'title', 'published_date'],
     useAsTitle: 'title'
   },
   access: {
@@ -61,6 +61,7 @@ const Posts: CollectionConfig = {
     },
     {
       name: 'published_date',
+      label: 'Published Date',
       type: 'date',
       defaultValue: () => new Date()
     },

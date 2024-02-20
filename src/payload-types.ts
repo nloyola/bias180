@@ -68,15 +68,15 @@ export interface User {
 export interface Post {
   id: number;
   postMeta: {
-    slug?: string | null;
-    published_date?: string | null;
     title: string;
     description: string;
     keywords?: string | null;
   };
+  slug?: string | null;
   title: string;
+  published_date?: string | null;
   postImage: number | Media;
-  layout?: (Quote | Content | Alert)[] | null;
+  layout?: (QuoteBlock | ContentBlock | AlertBlock)[] | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -99,9 +99,9 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Quote".
+ * via the `definition` "QuoteBlock".
  */
-export interface Quote {
+export interface QuoteBlock {
   quote?: string | null;
   author?: string | null;
   id?: string | null;
@@ -110,9 +110,9 @@ export interface Quote {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Content".
+ * via the `definition` "ContentBlock".
  */
-export interface Content {
+export interface ContentBlock {
   content?:
     | {
         [k: string]: unknown;
@@ -124,9 +124,9 @@ export interface Content {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "Alert".
+ * via the `definition` "AlertBlock".
  */
-export interface Alert {
+export interface AlertBlock {
   type?: ('info' | 'success' | 'warning' | 'danger') | null;
   message?: string | null;
   id?: string | null;
@@ -140,6 +140,7 @@ export interface Alert {
 export interface Page {
   id: number;
   title: string;
+  slug?: string | null;
   layout?:
     | (
         | TextBlock
@@ -150,10 +151,8 @@ export interface Page {
         | GradientQuotesBlock
         | ImageQuotesBlock
         | ContactDetailsBlock
-        | QuoteBlock
       )[]
     | null;
-  slug?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -263,17 +262,6 @@ export interface ContactDetailsBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'ContactDetails';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "QuoteBlock".
- */
-export interface QuoteBlock {
-  quoteHeader: string;
-  quoteText?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'Quote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
