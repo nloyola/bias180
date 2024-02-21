@@ -132,7 +132,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
           <div className="flex flex-col gap-1 py-4">
             <p className="text-3xl font-bold">{post.title}</p>
             {post.published_date && (
-              <p className="text-sm font-bold text-gray-400">Published: {format(post.published_date, 'yyyy-MM-dd')}</p>
+              <p className="text-sm font-semibold text-gray-400">
+                Published: {format(post.published_date, 'yyyy-MM-dd')}
+              </p>
             )}
           </div>
         </div>

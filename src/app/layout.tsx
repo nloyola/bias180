@@ -20,17 +20,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={mont.className}>
-        <div className="container flex justify-between px-8">
-          <div className="flex">
-            <Image
-              src="/assets/bias180-logo.webp"
-              alt="Bias180 logo"
-              width="0"
-              height="0"
-              sizes="100vw"
-              style={{ width: '50%', height: 'auto' }}
-            />
-          </div>
+        <div className="container flex items-center justify-between px-8 py-2">
+          <Image
+            src="/assets/bias180-logo.webp"
+            alt="Bias180 logo"
+            width="0"
+            height="0"
+            sizes="100vw"
+            style={{ width: '30%', height: 'auto' }}
+          />
           <NavMenu />
         </div>
         {children}

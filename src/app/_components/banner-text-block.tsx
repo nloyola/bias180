@@ -17,7 +17,7 @@ export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({
           <p className="h-[150px] md:h-[300px]"></p>
         </div>
       )}
-      <div className="container px-6 md:px-20">
+      <div className="container py-6">
         <h1 className="py-4 text-3xl font-bold">{block.header}</h1>
         <RichText content={block.content} className="grid pb-10" />
       </div>
