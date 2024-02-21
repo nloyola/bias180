@@ -1,7 +1,7 @@
 import type { Block } from 'payload/types';
 
 const Content: Block = {
-  slug: 'content',
+  slug: 'Content',
   interfaceName: 'ContentBlock',
   fields: [
     {

@@ -1,13 +1,13 @@
 import type { CollectionConfig } from 'payload/types';
+import { Approach } from './blocks/approach';
 import formatSlug from '../utilities/formatSlug';
-import { ApproachBlock } from './blocks/approach-block';
-import { BannerTextBlock } from './blocks/banner-text-block';
-import { BoardMembersBlock } from './blocks/board-members-block';
-import { BulletListBlock } from './blocks/bullet-list-block';
-import { ContactDetailsBlock } from './blocks/contact-details';
-import { GradientQuotesBlock } from './blocks/gradient-quotes-block';
-import { ImageQuotesBlock } from './blocks/image-quotes-block';
-import { TextBlock } from './blocks/text-block';
+import { Text } from './blocks/text';
+import { BoardMembers } from './blocks/board-members';
+import { BannerText } from './blocks/banner-text';
+import { BulletList } from './blocks/bullet-list';
+import { GradientQuotes } from './blocks/gradient-quotes';
+import { ImageQuotes } from './blocks/image-quotes';
+import { ContactDetails } from './blocks/contact-details';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
@@ -39,16 +39,7 @@ const Pages: CollectionConfig = {
       type: 'blocks',
       minRows: 1,
       maxRows: 20,
-      blocks: [
-        TextBlock,
-        ApproachBlock,
-        BoardMembersBlock,
-        BannerTextBlock,
-        BulletListBlock,
-        GradientQuotesBlock,
-        ImageQuotesBlock,
-        ContactDetailsBlock,
-      ],
+      blocks: [Text, Approach, BoardMembers, BannerText, BulletList, GradientQuotes, ImageQuotes, ContactDetails],
     },
   ],
 };

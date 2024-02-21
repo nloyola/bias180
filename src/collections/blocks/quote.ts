@@ -1,7 +1,7 @@
 import type { Block } from 'payload/types';
 
 const Quote: Block = {
-  slug: 'quote',
+  slug: 'Quote',
   imageAltText: 'Quote block',
   interfaceName: 'QuoteBlock',
   fields: [

@@ -94,21 +94,23 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
         <div className="grid grid-cols-1 gap-10 p-10 md:grid-cols-12">
           {approachesInRows.map((row, rowIndex) => (
             <React.Fragment key={rowIndex}>
-              {row.map(({ icon }, index) => {
-                const media = icon as Media;
-                return (
-                  <Image
-                    key={3 * rowIndex + index}
-                    src={media.url}
-                    alt="icon"
-                    className="m-2 place-self-center md:col-span-4"
-                    width="0"
-                    height="0"
-                    sizes="100vw"
-                    style={{ width: '20%', height: 'auto' }}
-                  />
-                );
-              })}
+              {row
+                .filter((icon) => !!icon)
+                .map(({ icon }, index) => {
+                  const media = icon as Media;
+                  return (
+                    <Image
+                      key={3 * rowIndex + index}
+                      src={media.url}
+                      alt="icon"
+                      className="m-2 place-self-center md:col-span-4"
+                      width="0"
+                      height="0"
+                      sizes="100vw"
+                      style={{ width: '20%', height: 'auto' }}
+                    />
+                  );
+                })}
               {row.map(({ header, content }, index) => (
                 <ApproachItem
                   key={30 * rowIndex + index}

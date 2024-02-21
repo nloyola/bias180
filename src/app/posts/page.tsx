@@ -1,20 +1,54 @@
 import { format } from 'date-fns';
 import Image from 'next/image';
 import Link from 'next/link';
-import { getPayloadClient } from '../../getPayload';
 import { Media } from '../../payload-types';
 import { ImagePlaceholder } from '../_components/image-placeholder';
 import { RewindIcon } from '../_components/rewind-incon';
 import { Button } from '../_components/ui/button';
 import { Card, CardContent, CardHeader } from '../_components/ui/card';
+import { getPayloadClient } from '../../getPayload';
+import type { Metadata, ResolvingMetadata } from 'next';
 
-// idea from here: https://play.tailwindcss.com/9Vnsn7VxnW
+type Props = {
+  params: {};
+};
 
-export default async function Posts() {
+export async function generateMetadata(params: Props, parent: ResolvingMetadata): Promise<Metadata> {
+  const metadata = await parent;
+  return {
+    title: 'Bias180 Blog Posts',
+    description: 'Bias180 Blog Posts',
+    alternates: {
+      canonical: metadata.metadataBase + 'posts',
+    },
+    openGraph: {
+      title: 'Bias180 Blog Posts',
+      description: 'Bias180 Blog Posts',
+      url: (await parent).metadataBase + `posts`,
+    },
+  };
+}
+
+async function getPosts() {
+  // temp fix to get "yarn build" to work
+  await new Promise((r) => setTimeout(r, 1000));
+
   const payload = await getPayloadClient();
   const { docs: posts } = await payload.find({
     collection: 'posts',
+    depth: 1,
+    sort: '-published_date',
   });
+  return posts;
+}
+
+// idea from here: https://play.tailwindcss.com/9Vnsn7VxnW
+export default async function Posts() {
+  const posts = await getPosts();
+
+  if (posts.length <= 0) {
+    return <div className="container flex justify-center p-8 text-8xl font-semibold text-red-500">No blog posts</div>;
+  }
 
   return (
     <>
@@ -52,7 +86,7 @@ export default async function Posts() {
                     <div className="flex flex-col gap-1 py-4">
                       <p className="text-3xl font-bold">{post.title}</p>
                       {post.published_date && (
-                        <p className="text-sm font-bold text-gray-500/90">
+                        <p className="text-sm font-semibold text-gray-500/90">
                           Published: {format(post.published_date, 'yyyy-MM-dd')}
                         </p>
                       )}

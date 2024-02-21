@@ -106,7 +106,7 @@ export interface QuoteBlock {
   author?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'quote';
+  blockType: 'Quote';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -120,7 +120,7 @@ export interface ContentBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'content';
+  blockType: 'Content';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -131,7 +131,7 @@ export interface AlertBlock {
   message?: string | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'alert';
+  blockType: 'Alert';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -145,7 +145,7 @@ export interface Page {
     | (
         | TextBlock
         | ApproachBlock
-        | BoardBlock
+        | BoardMembersBlock
         | BannerTextBlock
         | BulletListBlock
         | GradientQuotesBlock
@@ -183,14 +183,14 @@ export interface ApproachBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BoardBlock".
+ * via the `definition` "BoardMembersBlock".
  */
-export interface BoardBlock {
+export interface BoardMembersBlock {
   header: string;
   members?: BoardMembers;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'Board';
+  blockType: 'BoardMembers';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

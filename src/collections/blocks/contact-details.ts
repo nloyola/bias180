@@ -1,6 +1,6 @@
 import type { Block } from 'payload/types';
 
-export const ContactDetailsBlock: Block = {
+export const ContactDetails: Block = {
   slug: 'ContactDetails',
   imageAltText: 'The contact information',
   interfaceName: 'ContactDetailsBlock',

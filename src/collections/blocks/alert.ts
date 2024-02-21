@@ -1,7 +1,7 @@
 import type { Block } from 'payload/types';
 
 const Alert: Block = {
-  slug: 'alert',
+  slug: 'Alert',
   imageAltText: 'A message in an alert box',
   interfaceName: 'AlertBlock',
   fields: [

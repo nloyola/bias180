@@ -1,10 +1,10 @@
 import Image from 'next/image';
-import { BoardBlock, Media } from '../../payload-types';
+import { BoardMembersBlock, Media } from '../../payload-types';
 import { RichText } from './RichText';
 import { Heading } from './heading';
 import { ImagePlaceholder } from './image-placeholder';
 
-export const BoardBlockComponent: React.FC<{ block: BoardBlock }> = ({ block }) => {
+export const BoardBlockComponent: React.FC<{ block: BoardMembersBlock }> = ({ block }) => {
   return (
     <div className="container mx-auto py-8 md:px-20">
       <Heading label="Inaugural board of directors" />

@@ -49,7 +49,7 @@ export default async function Home() {
           case 'Approach':
             return <ApproachBlockComponent key={block.id} block={block} />;
 
-          case 'Board':
+          case 'BoardMembers':
             return <BoardBlockComponent key={block.id} block={block} />;
 
           case 'ContactDetails':

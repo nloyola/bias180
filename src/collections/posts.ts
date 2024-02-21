@@ -1,13 +1,13 @@
 import type { CollectionConfig } from 'payload/types';
 import formatSlug from '../utilities/formatSlug';
-import Alert from './blocks/alert';
-import Content from './blocks/content';
 import Quote from './blocks/quote';
+import Content from './blocks/content';
+import Alert from './blocks/alert';
 
 const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
-    //defaultColumns: ['slug', 'title', 'published_date'],
+    defaultColumns: ['slug', 'title', 'published_date'],
     useAsTitle: 'title',
   },
   access: {

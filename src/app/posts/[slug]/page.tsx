@@ -3,12 +3,13 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { format } from 'date-fns';
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
-import { getPayloadClient } from '../../../getPayload';
 import { AlertBlock, ContentBlock, Media, QuoteBlock } from '../../../payload-types';
 import { RichText } from '../../_components/RichText';
 import { ImagePlaceholder } from '../../_components/image-placeholder';
 import { RewindIcon } from '../../_components/rewind-incon';
 import { Alert, AlertTitle } from '../../_components/ui/alert';
+import { getPayloadClient } from '../../../getPayload';
+import { notFound } from 'next/navigation';
 
 const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   let variant: 'info' | 'success' | 'warning' | 'destructive';
@@ -70,19 +71,20 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
 
   const media = post.postImage as Media;
   const imageUrl = media.url ?? undefined;
+  const metadata = await parent;
 
   return {
     title: post.postMeta.title,
     description: post.postMeta.description,
     keywords: post.postMeta.keywords,
     alternates: {
-      canonical: `/posts/${params.slug}`,
+      canonical: metadata.metadataBase + `posts/${params.slug}`,
     },
     openGraph: {
       title: post.postMeta.title,
       description: post.postMeta.description,
       images: [imageUrl],
-      url: `/posts/${params.slug}`,
+      url: metadata.metadataBase + `posts/${params.slug}`,
     },
   };
 }
@@ -99,6 +101,11 @@ export default async function Post({ params }: { params: { slug: string } }) {
   });
 
   const post = docs[0];
+
+  if (!post) {
+    return notFound();
+  }
+
   const media = post.postImage as Media;
 
   return (
@@ -132,13 +139,13 @@ export default async function Post({ params }: { params: { slug: string } }) {
 
         {post.layout.map((block, index) => {
           switch (block.blockType) {
-            case 'alert':
+            case 'Alert':
               return <AlertBlockCmp key={index} block={block} />;
 
-            case 'content':
+            case 'Content':
               return <ContentBlockCmp key={index} block={block} />;
 
-            case 'quote':
+            case 'Quote':
               return <QuoteBlockCmp key={index} block={block} />;
 
             default:

@@ -1,9 +1,20 @@
 require('dotenv').config();
 
-module.exports = {
+const config = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
-    domains: ['localhost', process.env.NEXT_PUBLIC_PAYLOAD_URL]
-  }
+    remotePatterns: [
+      {
+        protocol: process.env.NEXT_PUBLIC_PAYLOAD_PROTOCOL,
+        hostname: process.env.NEXT_PUBLIC_PAYLOAD_HOSTNAME,
+        port: process.env.NEXT_PUBLIC_PAYLOAD_PORT,
+        pathname: '**',
+      },
+    ],
+  },
 };
+
+//console.log(config.images.remotePatterns);
+
+module.exports = config;
