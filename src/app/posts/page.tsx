@@ -1,19 +1,19 @@
+import { format } from 'date-fns';
+import Image from 'next/image';
+import Link from 'next/link';
 import { getPayloadClient } from '../../getPayload';
+import { Media } from '../../payload-types';
 import { ImagePlaceholder } from '../_components/image-placeholder';
+import { RewindIcon } from '../_components/rewind-incon';
 import { Button } from '../_components/ui/button';
 import { Card, CardContent, CardHeader } from '../_components/ui/card';
-import Link from 'next/link';
-import { RewindIcon } from '../_components/rewind-incon';
-import Image from 'next/image';
-import { Media } from '../../payload-types';
-import { format } from 'date-fns';
 
 // idea from here: https://play.tailwindcss.com/9Vnsn7VxnW
 
 export default async function Posts() {
   const payload = await getPayloadClient();
   const { docs: posts } = await payload.find({
-    collection: 'posts'
+    collection: 'posts',
   });
 
   return (

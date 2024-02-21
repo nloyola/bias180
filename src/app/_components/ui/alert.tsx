@@ -11,12 +11,12 @@ const alertVariants = cva(
         info: 'text-sky-600  border-sky-600/50 [&>svg]:text-sky-600',
         success: 'text-green-600  border-green-600/50 [&>svg]:text-green-600',
         warning: 'text-amber-600  border-amber-600/50 [&>svg]:text-amber-600',
-        destructive: 'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive'
-      }
+        destructive: 'border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive',
+      },
     },
     defaultVariants: {
-      variant: 'default'
-    }
+      variant: 'default',
+    },
   }
 );
 

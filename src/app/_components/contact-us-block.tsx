@@ -12,7 +12,7 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger
+  DialogTrigger,
 } from './ui/dialog';
 
 export const ContactUsBlockComponent: React.FC<{ block: ContactDetailsBlock }> = ({ block }) => {

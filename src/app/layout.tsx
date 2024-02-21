@@ -1,19 +1,19 @@
+import { Montserrat } from 'next/font/google';
+import Image from 'next/image';
+import React from 'react';
 import { Footer } from './_components/footer';
 import { NavMenu } from './_components/nav-menu';
 import './index.css';
-import Image from 'next/image';
-import React from 'react';
-import { Montserrat } from 'next/font/google';
 
 export const metadata = {
   title: 'Bias180',
   description: 'add description',
-  metadataBase: new URL(`${process.env.VERCEL_URL}`)
+  metadataBase: new URL(`${process.env.VERCEL_URL}`),
 };
 
 const mont = Montserrat({
   weight: ['200', '300', '400', '500', '600', '700', '800', '900'],
-  subsets: ['latin']
+  subsets: ['latin'],
 });
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,8 +1,8 @@
 import Image from 'next/image';
 import { BoardBlock, Media } from '../../payload-types';
+import { RichText } from './RichText';
 import { Heading } from './heading';
 import { ImagePlaceholder } from './image-placeholder';
-import { RichText } from './RichText';
 
 export const BoardBlockComponent: React.FC<{ block: BoardBlock }> = ({ block }) => {
   return (

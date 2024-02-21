@@ -1,6 +1,6 @@
 import React from 'react';
-import { RichText } from './RichText';
 import { TextBlock } from '../../payload-types';
+import { RichText } from './RichText';
 
 export const TextBlockComponent: React.FC<{ block: TextBlock }> = ({ block }) => {
   return (

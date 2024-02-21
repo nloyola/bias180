@@ -3,21 +3,21 @@ import type { CollectionConfig } from 'payload/types';
 const Media: CollectionConfig = {
   slug: 'media',
   admin: {
-    useAsTitle: 'title'
+    useAsTitle: 'title',
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     {
       name: 'alt',
-      type: 'text'
-    }
+      type: 'text',
+    },
   ],
   upload: {
     staticURL: '/media',
     staticDir: 'media',
-    mimeTypes: ['image/*', 'application/pdf']
-  }
+    mimeTypes: ['image/*', 'application/pdf'],
+  },
 };
 export default Media;

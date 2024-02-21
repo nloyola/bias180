@@ -7,12 +7,12 @@ const Quote: Block = {
   fields: [
     {
       name: 'quote',
-      type: 'textarea'
+      type: 'textarea',
     },
     {
       name: 'author',
-      type: 'text'
-    }
-  ]
+      type: 'text',
+    },
+  ],
 };
 export default Quote;

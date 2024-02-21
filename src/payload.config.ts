@@ -3,13 +3,13 @@ import { postgresAdapter } from '@payloadcms/db-postgres';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import dotenv from 'dotenv';
 import path from 'path';
-import Users from './collections/users';
-import Pages from './collections/pages';
 import Media from './collections/media';
+import Pages from './collections/pages';
 import Posts from './collections/posts';
+import Users from './collections/users';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../.env')
+  path: path.resolve(__dirname, '../.env'),
 });
 
 import { buildConfig } from 'payload/config';
@@ -22,16 +22,16 @@ export default buildConfig({
   admin: {
     bundler: webpackBundler(),
     components: {
-      beforeLogin: [BeforeLogin]
-    }
+      beforeLogin: [BeforeLogin],
+    },
   },
   editor: slateEditor({}),
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URI
-    }
+      connectionString: process.env.DATABASE_URI,
+    },
   }),
   typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts')
-  }
+    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  },
 });

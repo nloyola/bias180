@@ -6,8 +6,8 @@ const Content: Block = {
   fields: [
     {
       name: 'content',
-      type: 'richText'
-    }
-  ]
+      type: 'richText',
+    },
+  ],
 };
 export default Content;

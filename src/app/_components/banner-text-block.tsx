@@ -1,6 +1,6 @@
-import { cn } from '../_lib/utils';
 import React from 'react';
 import { BannerTextBlock, Media } from '../../payload-types';
+import { cn } from '../_lib/utils';
 import { RichText } from './RichText';
 
 export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({ block }) => {

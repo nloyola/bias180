@@ -2,6 +2,7 @@ import type { Block } from 'payload/types';
 
 const Alert: Block = {
   slug: 'alert',
+  imageAltText: 'A message in an alert box',
   interfaceName: 'AlertBlock',
   fields: [
     {
@@ -10,26 +11,26 @@ const Alert: Block = {
       options: [
         {
           value: 'info',
-          label: 'Info'
+          label: 'Info',
         },
         {
           value: 'success',
-          label: 'Success'
+          label: 'Success',
         },
         {
           value: 'warning',
-          label: 'Warning'
+          label: 'Warning',
         },
         {
           value: 'danger',
-          label: 'Danger'
-        }
-      ]
+          label: 'Danger',
+        },
+      ],
     },
     {
       name: 'message',
-      type: 'textarea'
-    }
-  ]
+      type: 'textarea',
+    },
+  ],
 };
 export default Alert;

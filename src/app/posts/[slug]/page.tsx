@@ -1,14 +1,14 @@
-import { ImagePlaceholder } from '../../_components/image-placeholder';
-import { Alert, AlertTitle } from '../../_components/ui/alert';
 import { faCircleInfo, faQuoteLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { getPayloadClient } from '../../../getPayload';
-import { RewindIcon } from '../../_components/rewind-incon';
+import { format } from 'date-fns';
 import type { Metadata, ResolvingMetadata } from 'next';
 import Image from 'next/image';
-import { RichText } from '../../_components/RichText';
+import { getPayloadClient } from '../../../getPayload';
 import { AlertBlock, ContentBlock, Media, QuoteBlock } from '../../../payload-types';
-import { format } from 'date-fns';
+import { RichText } from '../../_components/RichText';
+import { ImagePlaceholder } from '../../_components/image-placeholder';
+import { RewindIcon } from '../../_components/rewind-incon';
+import { Alert, AlertTitle } from '../../_components/ui/alert';
 
 const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   let variant: 'info' | 'success' | 'warning' | 'destructive';
@@ -58,9 +58,9 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     collection: 'posts',
     where: {
       slug: {
-        equals: slug
-      }
-    }
+        equals: slug,
+      },
+    },
   });
 
   const post = docs[0];
@@ -76,14 +76,14 @@ export async function generateMetadata({ params }: Props, parent: ResolvingMetad
     description: post.postMeta.description,
     keywords: post.postMeta.keywords,
     alternates: {
-      canonical: `/posts/${params.slug}`
+      canonical: `/posts/${params.slug}`,
     },
     openGraph: {
       title: post.postMeta.title,
       description: post.postMeta.description,
       images: [imageUrl],
-      url: `/posts/${params.slug}`
-    }
+      url: `/posts/${params.slug}`,
+    },
   };
 }
 
@@ -93,9 +93,9 @@ export default async function Post({ params }: { params: { slug: string } }) {
     collection: 'posts',
     where: {
       slug: {
-        equals: params.slug
-      }
-    }
+        equals: params.slug,
+      },
+    },
   });
 
   const post = docs[0];

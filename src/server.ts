@@ -4,7 +4,7 @@ import nextBuild from 'next/dist/build';
 import path from 'path';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../.env')
+  path: path.resolve(__dirname, '../.env'),
 });
 
 import express from 'express';
@@ -20,8 +20,8 @@ const start = async (): Promise<void> => {
       express: app,
       onInit: async (newPayload) => {
         newPayload.logger.info(`Payload Admin URL: ${newPayload.getAdminURL()}`);
-      }
-    }
+      },
+    },
   });
 
   if (process.env.NEXT_BUILD) {
@@ -36,7 +36,7 @@ const start = async (): Promise<void> => {
   }
 
   const nextApp = next({
-    dev: process.env.NODE_ENV !== 'production'
+    dev: process.env.NODE_ENV !== 'production',
   });
 
   const nextHandler = nextApp.getRequestHandler();

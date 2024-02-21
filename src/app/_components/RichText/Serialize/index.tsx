@@ -1,9 +1,9 @@
-import React, { Fragment } from 'react';
 import escapeHTML from 'escape-html';
+import Image from 'next/image';
 import Link from 'next/link';
+import React, { Fragment } from 'react';
 import { Media } from '../../../../payload-types';
 import { Button } from '../../ui/button';
-import Image from 'next/image';
 
 type Node = {
   type: string;
@@ -166,7 +166,7 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
                 {...(node.newTab
                   ? {
                       target: '_blank',
-                      rel: 'noopener noreferrer'
+                      rel: 'noopener noreferrer',
                     }
                   : {})}
               >

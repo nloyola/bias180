@@ -1,16 +1,16 @@
 'use client';
 
-import React, { ReactNode } from 'react';
-import { Heading } from './heading';
 import Image from 'next/image';
+import React, { ReactNode } from 'react';
 import { ApproachBlock, Media } from '../../payload-types';
+import { Heading } from './heading';
 
 // https://www.geeksforgeeks.org/how-to-create-circle-with-text-in-tailwind-css/
 
 const ApproachItem: React.FC<{ itemNum: number; heading: string; message: ReactNode }> = ({
   itemNum,
   heading,
-  message
+  message,
 }) => {
   return (
     <div className="flex gap-2 md:col-span-4">

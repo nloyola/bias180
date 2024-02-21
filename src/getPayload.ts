@@ -5,7 +5,7 @@ import payload from 'payload';
 import type { InitOptions } from 'payload/config';
 
 dotenv.config({
-  path: path.resolve(__dirname, '../.env')
+  path: path.resolve(__dirname, '../.env'),
 });
 
 // eslint-disable-next-line
@@ -33,7 +33,7 @@ export const getPayloadClient = async ({ initOptions }: Args = {}): Promise<Payl
     cached.promise = payload.init({
       secret: process.env.PAYLOAD_SECRET,
       local: initOptions?.express ? false : true,
-      ...(initOptions || {})
+      ...(initOptions || {}),
     });
   }
 

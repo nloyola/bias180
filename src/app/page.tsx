@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation';
 import { getPayloadClient } from '../getPayload';
 import { Page } from './../payload-types';
 import { ApproachBlockComponent } from './_components/approach-block';
@@ -8,8 +9,6 @@ import { ContactUsBlockComponent } from './_components/contact-us-block';
 import { GradientQuotesBlockComponent } from './_components/gradient-quotes';
 import { ImageQuotesBlockComponent } from './_components/image-quotes';
 import { TextBlockComponent } from './_components/text-block';
-import { notFound } from 'next/navigation';
-import React, { Fragment } from 'react';
 
 export default async function Home() {
   const payload = await getPayloadClient();
@@ -17,9 +16,9 @@ export default async function Home() {
     collection: 'pages',
     where: {
       slug: {
-        equals: 'bias180'
-      }
-    }
+        equals: 'bias180',
+      },
+    },
   });
 
   const home = docs?.[0] as Page;

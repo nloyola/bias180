@@ -1,6 +1,6 @@
-import { cn } from '../_lib/utils';
 import React from 'react';
 import { ImageQuotesBlock, Media } from '../../payload-types';
+import { cn } from '../_lib/utils';
 
 const quoteBaseCss = 'mt-10 bg-cyan-950/70 p-4 font-bold text-white md:ml-10 md:w-[35rem]';
 
@@ -50,7 +50,7 @@ export const ImageQuotesBlockComponent: React.FC<{ block: ImageQuotesBlock }> = 
         {block.content.map((list, index) => (
           <Quotes key={index} quotes={list} />
         ))}
-        <p className="p-4 text-xs text-white font-semibold">{block.sources}</p>
+        <p className="p-4 text-xs font-semibold text-white">{block.sources}</p>
       </div>
     </div>
   );

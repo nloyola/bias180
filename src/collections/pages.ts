@@ -1,27 +1,28 @@
 import type { CollectionConfig } from 'payload/types';
-import { TextBlock } from './blocks/text-block';
-import { BannerTextBlock } from './blocks/banner-text-block';
-import { BulletListBlock } from './blocks/bullet-list-block';
-import { ImageQuotesBlock } from './blocks/image-quotes-block';
-import { GradientQuotesBlock } from './blocks/gradient-quotes-block';
-import { ApproachBlock } from './blocks/approach-block';
-import { BoardMembersBlock } from './blocks/board-members-block';
-import { ContactDetailsBlock } from './blocks/contact-details';
 import formatSlug from '../utilities/formatSlug';
+import { ApproachBlock } from './blocks/approach-block';
+import { BannerTextBlock } from './blocks/banner-text-block';
+import { BoardMembersBlock } from './blocks/board-members-block';
+import { BulletListBlock } from './blocks/bullet-list-block';
+import { ContactDetailsBlock } from './blocks/contact-details';
+import { GradientQuotesBlock } from './blocks/gradient-quotes-block';
+import { ImageQuotesBlock } from './blocks/image-quotes-block';
+import { TextBlock } from './blocks/text-block';
 
 const Pages: CollectionConfig = {
   slug: 'pages',
   admin: {
-    useAsTitle: 'title'
+    useAsTitle: 'title',
   },
   access: {
-    read: () => true
+    read: () => true,
   },
   fields: [
     {
       name: 'title',
+      label: 'Title',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'slug',
@@ -30,8 +31,8 @@ const Pages: CollectionConfig = {
       unique: true,
       defaultValue: 'page-slug-change-me',
       hooks: {
-        beforeValidate: [formatSlug('title')]
-      }
+        beforeValidate: [formatSlug('title')],
+      },
     },
     {
       name: 'layout',
@@ -46,10 +47,10 @@ const Pages: CollectionConfig = {
         BulletListBlock,
         GradientQuotesBlock,
         ImageQuotesBlock,
-        ContactDetailsBlock
-      ]
-    }
-  ]
+        ContactDetailsBlock,
+      ],
+    },
+  ],
 };
 
 export default Pages;

@@ -1,6 +1,6 @@
-import { cn } from '../_lib/utils';
 import React from 'react';
 import { GradientQuotesBlock } from '../../payload-types';
+import { cn } from '../_lib/utils';
 
 const classes =
   'bg-bias-vert flex min-h-full min-w-full justify-center bg-gradient-to-r bg-cover bg-fixed bg-scroll bg-center';
@@ -53,7 +53,7 @@ export const GradientQuotesBlockComponent: React.FC<{ block: GradientQuotesBlock
             <Quotes key={index} quotes={list} />
           ))}
         </div>
-        <p className="p-4 text-xs text-white font-semibold">{block.sources}</p>
+        <p className="p-4 text-xs font-semibold text-white">{block.sources}</p>
       </div>
     </div>
   );

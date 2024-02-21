@@ -6,44 +6,44 @@ export const ContactDetailsBlock: Block = {
   interfaceName: 'ContactDetailsBlock',
   labels: {
     singular: 'Contact Details',
-    plural: 'Contact Details'
+    plural: 'Contact Details',
   },
   fields: [
     {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',
-      required: false
+      required: false,
     },
     {
       name: 'email',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'street',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'city',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'province',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'country',
       type: 'text',
-      required: true
+      required: true,
     },
     {
       name: 'postalCode',
       type: 'text',
-      required: true
-    }
-  ]
+      required: true,
+    },
+  ],
 };
