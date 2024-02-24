@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { Fragment } from 'react';
 import { Media } from '../../../../payload-types';
 import { Button } from '../../ui/button';
+import { RewindIcon } from '../../rewind-incon';
 
 type Node = {
   type: string;
@@ -89,42 +90,48 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
 
           case 'h1':
             return (
-              <h1 key={i} className="text-6xl font-semibold">
+              <h1 key={i} className="flex items-baseline gap-1 text-6xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h1>
             );
 
           case 'h2':
             return (
-              <h2 key={i} className="text-5xl font-semibold">
+              <h2 key={i} className="flex items-baseline gap-1 text-5xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h2>
             );
 
           case 'h3':
             return (
-              <h3 key={i} className="text-4xl font-semibold">
+              <h3 key={i} className="flex items-baseline gap-1 text-4xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h3>
             );
 
           case 'h4':
             return (
-              <h4 key={i} className="text-4xl font-semibold">
+              <h4 key={i} className="flex items-baseline gap-1 text-4xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h4>
             );
 
           case 'h5':
             return (
-              <h5 key={i} className="text-2xl font-semibold">
+              <h5 key={i} className="flex items-baseline gap-1 pt-8 text-2xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h5>
             );
 
           case 'h6':
             return (
-              <h6 key={i} className="text-xl font-semibold">
+              <h6 key={i} className="flex items-baseline gap-1 text-xl font-semibold">
+                <RewindIcon />
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </h6>
             );
@@ -138,14 +145,14 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
 
           case 'ul':
             return (
-              <ul key={i} className="list-disc">
+              <ul key={i} className="ml-6 list-outside list-disc">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </ul>
             );
 
           case 'ol':
             return (
-              <ol key={i} className="list-decimal">
+              <ol key={i} className="ml-6 list-outside list-decimal">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </ol>
             );
@@ -217,7 +224,7 @@ export const Serialize: SerializeFunction = ({ content, customRenderers }) => {
 
           default:
             return (
-              <p key={i} className="my-3">
+              <p key={i} className="mt-4">
                 <Serialize content={node.children} customRenderers={customRenderers} />
               </p>
             );

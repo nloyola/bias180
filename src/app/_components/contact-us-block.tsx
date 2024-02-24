@@ -14,6 +14,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from './ui/dialog';
+import { CenteredBlock } from './centered-block';
 
 export const ContactUsBlockComponent: React.FC<{ block: ContactDetailsBlock }> = ({ block }) => {
   let style = {};
@@ -24,10 +25,10 @@ export const ContactUsBlockComponent: React.FC<{ block: ContactDetailsBlock }> =
 
   return (
     <div
-      className="mt-10 flex h-[400px] min-h-full min-w-full items-center justify-center bg-cover bg-scroll bg-bottom"
+      className="mt-10 flex h-[600px] min-h-full min-w-full items-center justify-center bg-cover bg-scroll bg-bottom"
       style={style}
     >
-      <div className="container font-bold text-white">
+      <CenteredBlock>
         <div className="flex items-center justify-center">
           <Dialog>
             <DialogTrigger asChild>
@@ -68,7 +69,7 @@ export const ContactUsBlockComponent: React.FC<{ block: ContactDetailsBlock }> =
             </DialogContent>
           </Dialog>
         </div>
-      </div>
+      </CenteredBlock>
     </div>
   );
 };

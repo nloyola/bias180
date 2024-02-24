@@ -1,10 +1,8 @@
 'use client';
 
 import React from 'react';
-
+import { cn } from '../../_lib/utils';
 import { CustomRenderers, Serialize as SerializeContent } from './Serialize';
-
-const classes = '';
 
 export const RichText: React.FC<{
   className?: string;
@@ -16,7 +14,7 @@ export const RichText: React.FC<{
   }
 
   return (
-    <div className={[classes, className].filter(Boolean).join(' ')}>
+    <div className={cn(className)}>
       <SerializeContent content={content} customRenderers={customRenderers} />
     </div>
   );

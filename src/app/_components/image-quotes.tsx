@@ -1,6 +1,7 @@
 import React from 'react';
 import { ImageQuotesBlock, Media } from '../../payload-types';
 import { cn } from '../_lib/utils';
+import { CenteredBlock } from './centered-block';
 
 const quoteBaseCss = 'mt-10 bg-cyan-950/70 p-4 font-bold text-white md:ml-10 md:w-[35rem]';
 
@@ -46,12 +47,12 @@ export const ImageQuotesBlockComponent: React.FC<{ block: ImageQuotesBlock }> = 
 
   return (
     <div className={cn('my-4 flex min-h-full min-w-full justify-center bg-cover bg-bottom')} style={style}>
-      <div className="container flex flex-col justify-center gap-4">
+      <CenteredBlock className="flex flex-col justify-center gap-4">
         {block.content.map((list, index) => (
           <Quotes key={index} quotes={list} />
         ))}
         <p className="p-4 text-xs font-semibold text-white">{block.sources}</p>
-      </div>
+      </CenteredBlock>
     </div>
   );
 };

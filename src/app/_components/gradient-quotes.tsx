@@ -1,6 +1,7 @@
 import React from 'react';
 import { GradientQuotesBlock } from '../../payload-types';
 import { cn } from '../_lib/utils';
+import { CenteredBlock } from './centered-block';
 
 const classes =
   'bg-bias-vert flex min-h-full min-w-full justify-center bg-gradient-to-r bg-cover bg-fixed bg-scroll bg-center';
@@ -47,14 +48,14 @@ export const GradientQuotesBlockComponent: React.FC<{ block: GradientQuotesBlock
 
   return (
     <div className={cn(classes, gradient)}>
-      <div className="container text-white">
+      <CenteredBlock className="text-white">
         <div className="grid grid-cols-1 gap-6 p-8 md:grid-cols-3">
           {block.content.map((list, index) => (
             <Quotes key={index} quotes={list} />
           ))}
         </div>
         <p className="p-4 text-xs font-semibold text-white">{block.sources}</p>
-      </div>
+      </CenteredBlock>
     </div>
   );
 };

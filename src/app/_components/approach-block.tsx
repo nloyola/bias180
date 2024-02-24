@@ -4,6 +4,7 @@ import Image from 'next/image';
 import React, { ReactNode } from 'react';
 import { ApproachBlock, Media } from '../../payload-types';
 import { Heading } from './heading';
+import { CenteredBlock } from './centered-block';
 
 // https://www.geeksforgeeks.org/how-to-create-circle-with-text-in-tailwind-css/
 
@@ -49,7 +50,7 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
   if (width < breakpoint) {
     return (
       <div className="my-4 flex min-h-full min-w-full justify-center bg-cover bg-scroll bg-center" style={style}>
-        <div className="container my-4 text-white">
+        <CenteredBlock className="my-4 text-white">
           <Heading label={block.header} />
           <div className="grid grid-cols-1 gap-10 p-10 md:grid-cols-12">
             {block.items.map(({ header, content, icon }, index) => {
@@ -63,14 +64,14 @@ export const ApproachBlockComponent: React.FC<{ block: ApproachBlock }> = ({ blo
                     width="0"
                     height="0"
                     sizes="100vw"
-                    style={{ width: '100%', height: 'auto' }}
+                    style={{ width: '20%', height: 'auto' }}
                   />
                   <ApproachItem itemNum={index + 1} heading={header} message={content} />
                 </React.Fragment>
               );
             })}
           </div>
-        </div>
+        </CenteredBlock>
       </div>
     );
   }

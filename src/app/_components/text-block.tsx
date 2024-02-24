@@ -1,12 +1,12 @@
 import React from 'react';
 import { TextBlock } from '../../payload-types';
 import { RichText } from './RichText';
+import { CenteredBlock } from './centered-block';
 
 export const TextBlockComponent: React.FC<{ block: TextBlock }> = ({ block }) => {
   return (
-    <div className="px-6 md:px-20">
-      <h1 className="py-4 text-3xl font-bold">{block.header}</h1>
+    <CenteredBlock className="m-auto md:py-40">
       <RichText content={block.content} className="grid" />
-    </div>
+    </CenteredBlock>
   );
 };

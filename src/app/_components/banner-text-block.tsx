@@ -2,6 +2,7 @@ import React from 'react';
 import { BannerTextBlock, Media } from '../../payload-types';
 import { cn } from '../_lib/utils';
 import { RichText } from './RichText';
+import { CenteredBlock } from './centered-block';
 
 export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({ block }) => {
   let style = {};
@@ -17,10 +18,10 @@ export const BannerTextBlockComponent: React.FC<{ block: BannerTextBlock }> = ({
           <p className="h-[150px] md:h-[300px]"></p>
         </div>
       )}
-      <div className="container py-6">
+      <CenteredBlock>
         <h1 className="py-4 text-3xl font-bold">{block.header}</h1>
         <RichText content={block.content} className="grid pb-10" />
-      </div>
+      </CenteredBlock>
     </>
   );
 };

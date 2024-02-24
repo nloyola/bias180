@@ -3,15 +3,16 @@ import { BoardMembersBlock, Media } from '../../payload-types';
 import { RichText } from './RichText';
 import { Heading } from './heading';
 import { ImagePlaceholder } from './image-placeholder';
+import { CenteredBlock } from './centered-block';
 
 export const BoardBlockComponent: React.FC<{ block: BoardMembersBlock }> = ({ block }) => {
   return (
-    <div className="container mx-auto py-8 md:px-20">
+    <CenteredBlock>
       <Heading label="Inaugural board of directors" />
       {block.members.map((member, index) => {
         const media = member.image as Media;
         return (
-          <div key={index} className="mx-4 grid gap-4 border-b-2 pt-8 md:grid-cols-6 md:border-0">
+          <div key={index} className="m-6 grid gap-4 border-b-2 py-4 pt-8 md:grid-cols-6 md:border-0">
             {member.image ? (
               <Image
                 src={media.url}
@@ -27,11 +28,11 @@ export const BoardBlockComponent: React.FC<{ block: BoardMembersBlock }> = ({ bl
             )}
             <div className="py-4 md:col-span-5">
               <span className="font-semibold text-sky-600">{member.name}</span>
-              <RichText content={member.bio} className="grid" />
+              <RichText content={member.bio} />
             </div>
           </div>
         );
       })}
-    </div>
+    </CenteredBlock>
   );
 };

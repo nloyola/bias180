@@ -6,11 +6,6 @@ export const Text: Block = {
   interfaceName: 'TextBlock',
   fields: [
     {
-      name: 'header',
-      type: 'text',
-      required: true,
-    },
-    {
       name: 'content',
       type: 'richText',
       required: true,
