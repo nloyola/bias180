@@ -21,7 +21,6 @@
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "latest",
-    "@payloadcms/db-mongodb": "latest",
     "@payloadcms/db-postgres": "^0.6.0",
     "@payloadcms/richtext-slate": "latest",
     "@radix-ui/react-dialog": "^1.0.5",
