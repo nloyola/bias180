@@ -32,10 +32,6 @@ const AlertBlockCmp: React.FC<{ block: AlertBlock }> = ({ block }) => {
   );
 };
 
-const ContentBlockCmp: React.FC<{ block: ContentBlock }> = ({ block }) => {
-  return <RichText content={block.content} className="grid" />;
-};
-
 const QuoteBlockCmp: React.FC<{ block: QuoteBlock }> = ({ block }) => {
   return (
     <blockquote className="flex flex-col rounded-md bg-gray-200 p-6">
@@ -48,11 +44,10 @@ const QuoteBlockCmp: React.FC<{ block: QuoteBlock }> = ({ block }) => {
   );
 };
 
-type Props = {
-  params: { slug: string };
-};
-
-export async function generateMetadata({ params }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata(
+  { params }: { params: { slug: string } },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
   const payload = await getPayloadClient();
   const slug = params.slug;
   const { docs } = await payload.find({
@@ -145,7 +140,7 @@ export default async function Post({ params }: { params: { slug: string } }) {
               return <AlertBlockCmp key={index} block={block} />;
 
             case 'Content':
-              return <ContentBlockCmp key={index} block={block} />;
+              return <RichText key={index} content={block.content} className="grid" />;
 
             case 'Quote':
               return <QuoteBlockCmp key={index} block={block} />;
